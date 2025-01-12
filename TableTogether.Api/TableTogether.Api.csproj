@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TableTogether.Contracts\TableTogether.Contracts.csproj" />
+    <ProjectReference Include="..\TableTogether.Application\TableTogether.Application.csproj" />
+    <ProjectReference Include="..\TableTogether.Infrastructure\TableTogether.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
