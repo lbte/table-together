@@ -28,7 +28,7 @@ POST {{host}}/auth/register
     "firstName": "Laura",
     "lastName": "Bte",
     "email": "laura@gmail.com",
-    "token": ""
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV...sgY6kfxPhNirU4kRg"
 }
 ´´´
 
@@ -58,6 +58,6 @@ POST {{host}}/auth/login
     "firstName": "Laura",
     "lastName": "Bte",
     "email": "laura@gmail.com",
-    "token": ""
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV...sgY6kfxPhNirU4kRg"
 }
 ´´´
