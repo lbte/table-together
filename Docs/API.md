@@ -2,27 +2,27 @@
 
 ### Register
 
-´´´js
+```js
 POST {{host}}/auth/register
-´´´
+```
 
 #### Register request
 
-´´´json
+```json
 {
     "firstName": "Laura",
     "lastName": "Bte",
     "email": "laura@gmail.com",
     "password": "1234"
 }
-´´´
+```
 
 #### Register response
 
-´´´js
+```js
 200 OK
-´´´
-´´´json
+```
+```json
 {
     "id": "62e31cb6-1915-422e-b6cd-e5c1b1ed0e15",
     "firstName": "Laura",
@@ -30,29 +30,29 @@ POST {{host}}/auth/register
     "email": "laura@gmail.com",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV...sgY6kfxPhNirU4kRg"
 }
-´´´
+```
 
 ### Login
 
-´´´js
+```js
 POST {{host}}/auth/login
-´´´
+```
 
 #### Login request
 
-´´´json
+```json
 {
     "email": "laura@gmail.com",
     "password": "1234"
 }
-´´´
+```
 
 #### Login response
 
-´´´js
+```js
 200 OK
-´´´
-´´´json
+```
+```json
 {
     "id": "62e31cb6-1915-422e-b6cd-e5c1b1ed0e15",
     "firstName": "Laura",
@@ -60,4 +60,4 @@ POST {{host}}/auth/login
     "email": "laura@gmail.com",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV...sgY6kfxPhNirU4kRg"
 }
-´´´
+```
