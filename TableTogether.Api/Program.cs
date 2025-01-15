@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using TableTogether.Api.Errors;
 using TableTogether.Application;
 using TableTogether.Infrastructure;
 
@@ -7,12 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
         .AddApplication()
         .AddInfrastructure(builder.Configuration);
     builder.Services.AddControllers();
+
+    builder.Services.AddSingleton<ProblemDetailsFactory, TableTogetherProblemDetailsFactory>();
 }
 
 
 var app = builder.Build();
-
-app.UseHttpsRedirection();
-app.MapControllers();
-app.Run();
+{
+    app.UseExceptionHandler("/error");
+    app.UseHttpsRedirection();
+    app.MapControllers();
+    app.Run();
+}
 
