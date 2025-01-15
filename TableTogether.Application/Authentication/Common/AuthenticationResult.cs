@@ -1,6 +1,6 @@
 using TableTogether.Domain.Entities;
 
-namespace TableTogether.Application.Services.Authentication;
+namespace TableTogether.Application.Authentication.Common;
 
 public record AuthenticationResult(
     User User,
