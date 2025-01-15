@@ -1,4 +1,6 @@
 using TableTogether.Application.Common.Interfaces.Authentication;
+using TableTogether.Application.Common.Interfaces.Persistence;
+using TableTogether.Domain.Entities;
 
 namespace TableTogether.Application.Services.Authentication;
 
@@ -6,37 +8,54 @@ public class AuthenticationService : IAuthenticationService
 {
 
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
+    private readonly IUserRespository _userRepository;
 
-    public AuthenticationService(IJwtTokenGenerator jwtTokenGenerator)
+    public AuthenticationService(IJwtTokenGenerator jwtTokenGenerator, IUserRespository userRepository)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
+        _userRepository = userRepository;
     }
 
     public AuthenticationResult Register(string firstName, string lastName, string email, string password)
     {
-        // check if user already exists
+        if (_userRepository.GetByEmail(email) is not null)
+        {
+            throw new Exception("User with this email already exists");
+        }
 
-        // generate unique id by creating the user
-        Guid userId = Guid.NewGuid();
+        var user = new User
+        {
+            FirstName = firstName,
+            LastName = lastName,
+            Email = email,
+            Password = password
+        };
 
-        // generate token
-        var token = _jwtTokenGenerator.GenerateToken(userId, firstName, lastName);
+        _userRepository.Add(user);
+
+        var token = _jwtTokenGenerator.GenerateToken(user);
 
         return new AuthenticationResult(
-            userId, 
-            firstName, 
-            lastName, 
-            email, 
+            user, 
             token);
     }
 
     public AuthenticationResult Login(string email, string password)
     {
+        if (_userRepository.GetByEmail(email) is not User user)
+        {
+            // intermediate implementation
+            throw new Exception("User with this email does not exist");
+        }
+
+        if (user.Password != password)
+        {
+            throw new Exception("Invalid password");
+        }
+
+        var token = _jwtTokenGenerator.GenerateToken(user);
         return new AuthenticationResult(
-            Guid.NewGuid(), 
-            "firstName", 
-            "lastName", 
-            email, 
-            "token");
+            user, 
+            token);
     }
 }
