@@ -3,12 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TableTogether.Api.Controllers;
 
-public class ErrorsController : ControllerBase
+public class ErrorsController : ApiController
 {
     [Route("/error")]
     public IActionResult Error()
     {
-        Exception? exception = HttpContext.Features.Get<IExceptionHandlerFeature>()?.Error;
-        return Problem(title: exception?.Message);
+        return Problem();
     }
 }

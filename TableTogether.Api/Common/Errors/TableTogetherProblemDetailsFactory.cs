@@ -1,10 +1,12 @@
 using System.Diagnostics;
+using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
+using TableTogether.Api.Common.Http;
 
-namespace TableTogether.Api.Errors;
+namespace TableTogether.Api.Common.Errors;
 
 public class TableTogetherProblemDetailsFactory : ProblemDetailsFactory
 {
@@ -39,27 +41,6 @@ public class TableTogetherProblemDetailsFactory : ProblemDetailsFactory
         return problemDetails;
     }
 
-    private void ApplyProblemDetailsDefaults(HttpContext httpContext, ProblemDetails problemDetails, int statusCode)
-    {
-        problemDetails.Status ??= statusCode;
-
-        if (_options.ClientErrorMapping.TryGetValue(statusCode, out var clientErrorData))
-        {
-            problemDetails.Title ??= clientErrorData.Title;
-            problemDetails.Type ??= clientErrorData.Link;
-        }
-
-        var traceId = Activity.Current?.Id ?? httpContext?.TraceIdentifier;
-
-        if (traceId is not null)
-        {
-            problemDetails.Extensions["traceId"] = traceId;
-        }
-
-        // Adding a new custom property in the error message
-        problemDetails.Extensions.Add("customProperty", "customValue");
-    }
-
     public override ValidationProblemDetails CreateValidationProblemDetails(
         HttpContext httpContext,
         ModelStateDictionary modelStateDictionary,
@@ -90,5 +71,32 @@ public class TableTogetherProblemDetailsFactory : ProblemDetailsFactory
         ApplyProblemDetailsDefaults(httpContext, problemDetails, statusCode.Value);
 
         return problemDetails;
+    }
+
+    private void ApplyProblemDetailsDefaults(HttpContext httpContext, ProblemDetails problemDetails, int statusCode)
+    {
+        problemDetails.Status ??= statusCode;
+
+        if (_options.ClientErrorMapping.TryGetValue(statusCode, out var clientErrorData))
+        {
+            problemDetails.Title ??= clientErrorData.Title;
+            problemDetails.Type ??= clientErrorData.Link;
+        }
+
+        var traceId = Activity.Current?.Id ?? httpContext?.TraceIdentifier;
+
+        if (traceId is not null)
+        {
+            problemDetails.Extensions["traceId"] = traceId;
+        }
+
+        var errors = httpContext?.Items[HttpContextItemKeys.Errors] as List<Error>;
+
+        if (errors is not null)
+        {
+            // Adding a new custom property in the error message
+            problemDetails.Extensions.Add("errorCodes", errors.Select(e => e.Code));
+
+        }
     }
 }

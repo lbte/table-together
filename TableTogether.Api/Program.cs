@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using TableTogether.Api.Errors;
+using TableTogether.Api.Common.Errors;
 using TableTogether.Application;
 using TableTogether.Infrastructure;
 

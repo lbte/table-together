@@ -1,5 +1,7 @@
+using ErrorOr;
 using TableTogether.Application.Common.Interfaces.Authentication;
 using TableTogether.Application.Common.Interfaces.Persistence;
+using TableTogether.Domain.Common.Errors;
 using TableTogether.Domain.Entities;
 
 namespace TableTogether.Application.Services.Authentication;
@@ -16,11 +18,11 @@ public class AuthenticationService : IAuthenticationService
         _userRepository = userRepository;
     }
 
-    public AuthenticationResult Register(string firstName, string lastName, string email, string password)
+    public ErrorOr<AuthenticationResult> Register(string firstName, string lastName, string email, string password)
     {
         if (_userRepository.GetByEmail(email) is not null)
         {
-            throw new Exception("User with this email already exists");
+            return Errors.User.DuplicateEmail;
         }
 
         var user = new User
@@ -40,17 +42,16 @@ public class AuthenticationService : IAuthenticationService
             token);
     }
 
-    public AuthenticationResult Login(string email, string password)
+    public ErrorOr<AuthenticationResult> Login(string email, string password)
     {
         if (_userRepository.GetByEmail(email) is not User user)
         {
-            // intermediate implementation
-            throw new Exception("User with this email does not exist");
+            return Errors.Authentication.InvalidCredentials;
         }
 
         if (user.Password != password)
         {
-            throw new Exception("Invalid password");
+            return Errors.Authentication.InvalidCredentials;
         }
 
         var token = _jwtTokenGenerator.GenerateToken(user);
