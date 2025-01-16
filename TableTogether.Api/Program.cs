@@ -1,5 +1,4 @@
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using TableTogether.Api.Common.Errors;
+using TableTogether.Api;
 using TableTogether.Application;
 using TableTogether.Infrastructure;
 
@@ -7,10 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 {
     builder.Services
         .AddApplication()
+        .AddPresentation()
         .AddInfrastructure(builder.Configuration);
-    builder.Services.AddControllers();
-
-    builder.Services.AddSingleton<ProblemDetailsFactory, TableTogetherProblemDetailsFactory>();
 }
 
 
