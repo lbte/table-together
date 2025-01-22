@@ -1,4 +1,5 @@
 using ErrorOr;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using TableTogether.Api.Common.Http;
@@ -6,6 +7,7 @@ using TableTogether.Api.Common.Http;
 namespace TableTogether.Api.Controllers;
 
 [ApiController]
+[Authorize]
 public class ApiController : ControllerBase
 {
     protected IActionResult Problem(List<Error> errors)
@@ -34,7 +36,7 @@ public class ApiController : ControllerBase
             ErrorType.NotFound => StatusCodes.Status404NotFound,
             _ => StatusCodes.Status500InternalServerError
         };
-        
+
         return Problem(statusCode: statusCode, title: error.Description);
     }
 

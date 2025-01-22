@@ -1,6 +1,7 @@
 using ErrorOr;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TableTogether.Application.Authentication.Commands.Register;
 using TableTogether.Application.Authentication.Common;
@@ -11,6 +12,7 @@ using TableTogether.Domain.Common.Errors;
 namespace TableTogether.Api.Controllers;
 
 [Route("auth")]
+[AllowAnonymous]
 public class AuthenticationController(ISender mediator, IMapper mapper) : ApiController
 {
     private readonly ISender _mediator = mediator;
