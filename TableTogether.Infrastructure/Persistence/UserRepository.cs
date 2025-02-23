@@ -1,5 +1,5 @@
 using TableTogether.Application.Common.Interfaces.Persistence;
-using TableTogether.Domain.Entities;
+using TableTogether.Domain.User;
 
 namespace TableTogether.Infrastructure.Persistence;
 

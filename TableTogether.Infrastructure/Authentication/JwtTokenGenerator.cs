@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using TableTogether.Application.Common.Interfaces.Authentication;
 using TableTogether.Application.Common.Interfaces.Services;
-using TableTogether.Domain.Entities;
+using TableTogether.Domain.User;
 
 namespace TableTogether.Infrastructure.Authentication;
 

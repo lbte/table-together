@@ -4,7 +4,7 @@ using TableTogether.Application.Authentication.Common;
 using TableTogether.Application.Common.Interfaces.Authentication;
 using TableTogether.Application.Common.Interfaces.Persistence;
 using TableTogether.Domain.Common.Errors;
-using TableTogether.Domain.Entities;
+using TableTogether.Domain.User;
 
 namespace TableTogether.Application.Authentication.Queries.Login;
 

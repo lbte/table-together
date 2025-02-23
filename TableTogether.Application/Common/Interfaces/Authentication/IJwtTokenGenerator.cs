@@ -1,4 +1,4 @@
-using TableTogether.Domain.Entities;
+using TableTogether.Domain.User;
 
 namespace TableTogether.Application.Common.Interfaces.Authentication;
 
