@@ -1,6 +1,6 @@
 using TableTogether.Domain.Common.Models;
 
-namespace TableTogether.Domain.Dinner.ValueObjects;
+namespace TableTogether.Domain.Common.ValueObjects;
 
 public sealed class Price : ValueObject
 {

@@ -1,4 +1,5 @@
 using TableTogether.Domain.Common.Models;
+using TableTogether.Domain.Common.ValueObjects;
 using TableTogether.Domain.Dinner.Entities;
 using TableTogether.Domain.Dinner.ValueObjects;
 using TableTogether.Domain.Host.ValueObjects;
