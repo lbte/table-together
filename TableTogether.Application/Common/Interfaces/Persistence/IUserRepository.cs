@@ -1,4 +1,4 @@
-using TableTogether.Domain.User;
+using TableTogether.Domain.Entities;
 
 namespace TableTogether.Application.Common.Interfaces.Persistence;
 

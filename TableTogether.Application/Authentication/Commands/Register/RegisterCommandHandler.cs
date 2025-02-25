@@ -5,7 +5,6 @@ using TableTogether.Application.Common.Interfaces.Authentication;
 using TableTogether.Application.Common.Interfaces.Persistence;
 using TableTogether.Domain.Common.Errors;
 using TableTogether.Domain.Entities;
-
 namespace TableTogether.Application.Authentication.Commands.Register;
 
 public class RegisterCommandHandler(
