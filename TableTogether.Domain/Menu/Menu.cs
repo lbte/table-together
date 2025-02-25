@@ -29,6 +29,7 @@ public sealed class Menu : AggregateRoot<MenuId>
         string description,
         AverageRating averageRating,
         HostId hostId,
+        List<MenuSection> sections,
         DateTime createdDateTime,
         DateTime updatedDateTime) : base(id)
     {
@@ -36,6 +37,7 @@ public sealed class Menu : AggregateRoot<MenuId>
         Description = description;
         AverageRating = averageRating;
         HostId = hostId;
+        _sections = sections;
         CreatedDateTime = createdDateTime;
         UpdatedDateTime = updatedDateTime;
     }
@@ -43,15 +45,16 @@ public sealed class Menu : AggregateRoot<MenuId>
     public static Menu Create(
         string name,
         string description,
-        AverageRating averageRating,
+        List<MenuSection>? sections,
         HostId hostId)
     {
         return new(
             MenuId.CreateUnique(),
             name,
             description,
-            averageRating,
+            AverageRating.CreateNew(),
             hostId,
+            sections ?? new(),
             DateTime.UtcNow,
             DateTime.UtcNow);
     }
