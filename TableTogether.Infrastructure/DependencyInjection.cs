@@ -17,10 +17,18 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
     {
-        services.AddAuth(configuration);
+        services.AddAuth(configuration)
+                .AddPersistance();
+                
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
+        return services;
+    }
+
+    private static IServiceCollection AddPersistance(this IServiceCollection services)
+    {
         services.AddScoped<IUserRespository, UserRepository>();
+        services.AddScoped<IMenuRepository, MenuRepository>();
         return services;
     }
 
